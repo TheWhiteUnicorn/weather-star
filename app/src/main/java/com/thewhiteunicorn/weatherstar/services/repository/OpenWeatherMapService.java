@@ -1,8 +1,6 @@
-package com.thewhiteunicorn.weatherstar.services.weatherData;
+package com.thewhiteunicorn.weatherstar.services.repository;
 
 import com.thewhiteunicorn.weatherstar.services.model.WeatherSnapshot;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

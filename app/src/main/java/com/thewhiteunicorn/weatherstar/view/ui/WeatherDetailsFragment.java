@@ -39,6 +39,6 @@ public class WeatherDetailsFragment extends Fragment {
 
     private void observeViewModel(final CurrentWeatherSnapshotViewModel viewModel) {
         currentWeatherSnapshotViewModel.getCurrentWeatherSnapshotObservable()
-                .observe(this, viewModel::setWeatherSnapshot);
+                .observe(this, ws -> viewModel.setWeatherSnapshot(ws));
     }
 }

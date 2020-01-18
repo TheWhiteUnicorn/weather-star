@@ -8,7 +8,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.thewhiteunicorn.weatherstar.services.model.WeatherSnapshot;
-import com.thewhiteunicorn.weatherstar.services.weatherData.WeatherDataProvider;
+import com.thewhiteunicorn.weatherstar.services.repository.WeatherDataProvider;
 
 public class CurrentWeatherSnapshotViewModel extends AndroidViewModel {
     private final LiveData<WeatherSnapshot> currentWeatherSnapshotObservable;

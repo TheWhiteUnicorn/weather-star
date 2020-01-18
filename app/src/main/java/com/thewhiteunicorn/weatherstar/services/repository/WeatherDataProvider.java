@@ -1,5 +1,6 @@
-package com.thewhiteunicorn.weatherstar.services.weatherData;
+package com.thewhiteunicorn.weatherstar.services.repository;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -35,12 +36,12 @@ public class WeatherDataProvider {
 
         owmService.getCurrentWeather().enqueue(new Callback<WeatherSnapshot>() {
             @Override
-            public void onResponse(Call<WeatherSnapshot> call, Response<WeatherSnapshot> response) {
+            public void onResponse(@NonNull Call<WeatherSnapshot> call, @NonNull Response<WeatherSnapshot> response) {
                 data.setValue(response.body());
             }
 
             @Override
-            public void onFailure(Call<WeatherSnapshot> call, Throwable t) {
+            public void onFailure(@NonNull Call<WeatherSnapshot> call, @NonNull Throwable t) {
                 data.setValue(null);
             }
         });
