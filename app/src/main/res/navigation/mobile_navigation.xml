@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_weather">
+
+    <fragment
+        android:id="@+id/navigation_weather"
+        android:name="com.thewhiteunicorn.weatherstar.view.ui.HomeFragment"
+        android:label="@string/title_weather"
+        tools:layout="@layout/fragment_weather_details" />
+
+    <fragment
+        android:id="@+id/navigation_cities"
+        android:name="com.thewhiteunicorn.weatherstar.view.ui.WeatherDetailsFragment"
+        android:label="@string/title_cities"
+        tools:layout="@layout/fragment_cities" />
+</navigation>

@@ -1,0 +1,281 @@
+package com.thewhiteunicorn.weatherstar.services.model;
+
+import com.thewhiteunicorn.weatherstar.services.model.common.Coords;
+
+import java.util.ArrayList;
+
+public class WeatherSnapshot {
+    private Coords coord;
+    private ArrayList<Weather> weather;
+    private String base;
+    private WeatherMain main;
+    private int visibility;
+    private Wind wind;
+    private Clouds clouds;
+    private long dt;
+    //private WeatherSys sys;
+    private int id;
+    private String name;
+    private int cod;
+
+    public Coords getCoord() {
+        return coord;
+    }
+    public void setCoord(Coords coord) {
+        this.coord = coord;
+    }
+
+    public ArrayList<Weather> getWeather() {
+        return weather;
+    }
+    public void setWeather(ArrayList<Weather> weather) {
+        this.weather = weather;
+    }
+
+    public String getBase() {
+        return base;
+    }
+    public void setBase(String base) {
+        this.base = base;
+    }
+
+    public WeatherMain getMain() {
+        return main;
+    }
+    public void setMain(WeatherMain main) {
+        this.main = main;
+    }
+
+    public int getVisibility() {
+        return visibility;
+    }
+    public void setVisibility(int visibility) {
+        this.visibility = visibility;
+    }
+
+    public Wind getWind() {
+        return wind;
+    }
+    public void setWind(Wind wind) {
+        this.wind = wind;
+    }
+
+    public Clouds getClouds() {
+        return clouds;
+    }
+    public void setClouds(Clouds clouds) {
+        this.clouds = clouds;
+    }
+
+    public long getDt() {
+        return dt;
+    }
+    public void setDt(long dt) {
+        this.dt = dt;
+    }
+
+    /*public WeatherSys getSys() {
+        return sys;
+    }
+    public void setSys(WeatherSys sys) {
+        this.sys = sys;
+    }*/
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getCod() {
+        return cod;
+    }
+    public void setCod(int cod) {
+        this.cod = cod;
+    }
+}
+
+class Weather {
+    private int id;
+    private String main;
+    private String description;
+    private String icon;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getMain() {
+        return main;
+    }
+
+    public void setMain(String main) {
+        this.main = main;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+}
+
+class WeatherMain {
+    private float temp;
+    private int pressure;
+    private int humidity;
+    private float temp_min;
+    private float temp_max;
+
+    public float getTemp() {
+        return temp;
+    }
+
+    public void setTemp(float temp) {
+        this.temp = temp;
+    }
+
+    public int getPressure() {
+        return pressure;
+    }
+
+    public void setPressure(int pressure) {
+        this.pressure = pressure;
+    }
+
+    public int getHumidity() {
+        return humidity;
+    }
+
+    public void setHumidity(int humidity) {
+        this.humidity = humidity;
+    }
+
+    public float getTemp_min() {
+        return temp_min;
+    }
+
+    public void setTemp_min(float temp_min) {
+        this.temp_min = temp_min;
+    }
+
+    public float getTemp_max() {
+        return temp_max;
+    }
+
+    public void setTemp_max(float temp_max) {
+        this.temp_max = temp_max;
+    }
+}
+
+class Wind {
+    private float speed;
+    private int deg;
+
+    public float getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(float speed) {
+        this.speed = speed;
+    }
+
+    public int getDeg() {
+        return deg;
+    }
+
+    public void setDeg(int deg) {
+        this.deg = deg;
+    }
+}
+
+class Clouds {
+    private int all;
+
+    public int getAll() {
+        return all;
+    }
+
+    public void setAll(int all) {
+        this.all = all;
+    }
+}
+
+class WeatherSys {
+    private int type;
+    private int id;
+    private float message;
+    private String country;
+    private long sunrize;
+    private long sunset;
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public float getMessage() {
+        return message;
+    }
+
+    public void setMessage(float message) {
+        this.message = message;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public long getSunrize() {
+        return sunrize;
+    }
+
+    public void setSunrize(long sunrize) {
+        this.sunrize = sunrize;
+    }
+
+    public long getSunset() {
+        return sunset;
+    }
+
+    public void setSunset(long sunset) {
+        this.sunset = sunset;
+    }
+}
