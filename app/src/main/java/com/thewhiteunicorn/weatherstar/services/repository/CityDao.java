@@ -9,6 +9,8 @@ import androidx.room.Update;
 import androidx.room.Delete;
 
 import com.thewhiteunicorn.weatherstar.services.model.City;
+import com.thewhiteunicorn.weatherstar.services.model.CityWithIsFavourite;
+import com.thewhiteunicorn.weatherstar.services.model.FavoriteCity;
 
 import java.util.List;
 
@@ -23,11 +25,22 @@ public interface CityDao {
     @Query("SELECT COUNT(id) FROM city")
     int getRowCount();
 
+    @Query("SELECT city.id, name, country, " +
+            "CASE WHEN (FavoriteCity.id is null) " +
+            "THEN 0 " +
+            "ELSE 1 END AS isFavourite " +
+            "FROM city LEFT JOIN FavoriteCity ON city.id == FavoriteCity.city_id " +
+            "LIMIT 100")
+    LiveData<List<CityWithIsFavourite>> getCitiesWithIsFavourite();
+
     @Insert
     void insert(City city);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(List<City> cities);
+
+    @Insert
+    void setFavourite(FavoriteCity favoriteCity);
 
     @Update
     void update(City city);
@@ -36,5 +49,8 @@ public interface CityDao {
     void delete(City city);
 
     @Query("DELETE FROM city")
-    void nukeTable();
+    void cleanCitiesTable();
+
+    @Query("DELETE FROM favoritecity")
+    void cleanFavouriesTable();
 }

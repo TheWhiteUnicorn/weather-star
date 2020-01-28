@@ -89,7 +89,8 @@ public class CitiesDataLoader {
 }
 
 class GZIPInterceptor implements Interceptor {
-    @Override public Response intercept(Interceptor.Chain chain) throws IOException {
+    @Override
+    public Response intercept(Interceptor.Chain chain) throws IOException {
         Request request = chain.request();
 
         Response response = chain.proceed(request);
@@ -112,8 +113,14 @@ class CallableLoadCities implements Callable<Integer> {
     public Integer call() throws Exception {
         AppDatabase db = App.getInstance().getDatabase();
         CityDao cityDao = db.cityDao();
-        cityDao.nukeTable();
-        cityDao.insert(cities);
-        return cityDao.getRowCount();
+        int dbCitiesCount = cityDao.getRowCount();
+        int responseCitiesCount = cities.size();
+        if (dbCitiesCount != responseCitiesCount) {
+            cityDao.cleanCitiesTable();
+            cityDao.insert(cities);
+            return cityDao.getRowCount();
+        } else {
+            return dbCitiesCount;
+        }
     }
 }

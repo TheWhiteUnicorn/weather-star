@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <variable name="city" type="com.thewhiteunicorn.weatherstar.services.model.City"/>
-        <variable name="callback" type="com.thewhiteunicorn.weatherstar.view.callback.CityClickCallback"/>
+        <variable name="city" type="com.thewhiteunicorn.weatherstar.services.model.CityWithIsFavourite"/>
+        <variable name="callbackListItemClick" type="com.thewhiteunicorn.weatherstar.view.callback.CityClickCallback"/>
+        <variable name="callbackFavouriteClick" type="com.thewhiteunicorn.weatherstar.view.callback.CityFavouriteCallback"/>
     </data>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:onClick="@{() ->  callback.onClick(city)}"
+        android:onClick="@{() ->  callbackListItemClick.onClick(city)}"
         android:layout_marginStart="@dimen/list_item_horizontal_margin"
         android:layout_marginEnd="@dimen/list_item_horizontal_margin"
         app:cardUseCompatPadding="true">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_marginStart="@dimen/list_item_horizontal_margin"
             android:layout_marginEnd="@dimen/list_item_horizontal_margin"
             android:layout_width="match_parent"
@@ -28,11 +30,30 @@
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:contentDescription="@string/city_name"
-                android:textStyle="bold"
+                android:text="@{city.name}"
                 android:textSize="@dimen/city_text"
-                android:text="@{city.name}"/>
-        </LinearLayout>
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="City name" />
+
+            <ImageButton
+                android:id="@+id/favorite"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_marginEnd="8dp"
+                android:background="#00ffffff"
+                android:contentDescription="@string/favourite_city_marker"
+                android:onClick="@{() -> callbackFavouriteClick.onToggle(city)}"
+                android:src="@drawable/star"
+                app:isSelected="@{city.isFavourite}"
+                app:layout_constraintBottom_toBottomOf="@+id/name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/name" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
 </layout>

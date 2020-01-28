@@ -9,4 +9,9 @@ public class CustomBindingAdapter {
     public static void showHide(View view, boolean show) {
         view.setVisibility(show ? View.VISIBLE : View.GONE);
     }
+
+    @BindingAdapter("isSelected")
+    public static void setSelected(View view, boolean selected) {
+        view.setSelected(selected);
+    }
 }

@@ -17,6 +17,7 @@ import com.thewhiteunicorn.weatherstar.R;
 import com.thewhiteunicorn.weatherstar.databinding.FragmentCitiesListBinding;
 import com.thewhiteunicorn.weatherstar.view.adapter.CitiesAdapter;
 import com.thewhiteunicorn.weatherstar.view.callback.CityClickCallback;
+import com.thewhiteunicorn.weatherstar.view.callback.CityFavouriteCallback;
 import com.thewhiteunicorn.weatherstar.viewmodel.CitiesListViewModel;
 
 public class CitiesListFragment extends Fragment {
@@ -27,9 +28,19 @@ public class CitiesListFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
+        /*AppDatabase db = App.getInstance().getDatabase();
+        CityDao cityDao = db.cityDao();
+
+        cityDao.cleanFavouriesTable();
+
+        FavoriteCity favoriteCity = new FavoriteCity();
+        favoriteCity.cityId = 833;
+        cityDao.setFavourite(favoriteCity);*/
+
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_cities_list, container, false);
 
-        citiesAdapter = new CitiesAdapter(cityClickCallback);
+        citiesAdapter = new CitiesAdapter(cityClickCallback, cityFavouriteCallback);
         binding.citiesList.setAdapter(citiesAdapter);
         binding.setIsLoading(true);
 
@@ -57,7 +68,13 @@ public class CitiesListFragment extends Fragment {
 
     private final CityClickCallback cityClickCallback = city -> {
         if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
-            //((MainActivity) getActivity()).show(city);
+
+        }
+    };
+
+    private final CityFavouriteCallback cityFavouriteCallback = city -> {
+        if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
+
         }
     };
 }

@@ -11,24 +11,29 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.thewhiteunicorn.weatherstar.R;
 import com.thewhiteunicorn.weatherstar.databinding.CityListItemBinding;
-import com.thewhiteunicorn.weatherstar.services.model.City;
+import com.thewhiteunicorn.weatherstar.services.model.CityWithIsFavourite;
 import com.thewhiteunicorn.weatherstar.view.callback.CityClickCallback;
+import com.thewhiteunicorn.weatherstar.view.callback.CityFavouriteCallback;
 
 import java.util.List;
 import java.util.Objects;
 
 public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.CitiesViewHolder> {
 
-    private List<? extends City> citiesList;
+    private List<? extends CityWithIsFavourite> citiesList;
 
     @Nullable
     private final CityClickCallback cityClickCallback;
+    @Nullable
+    private final CityFavouriteCallback cityFavouriteCallback;
 
-    public CitiesAdapter(@Nullable CityClickCallback cityClickCallback) {
+    public CitiesAdapter(@Nullable CityClickCallback cityClickCallback,
+                         @Nullable CityFavouriteCallback cityFavouriteCallback) {
         this.cityClickCallback = cityClickCallback;
+        this.cityFavouriteCallback = cityFavouriteCallback;
     }
 
-    public void setCitiesList(final List<? extends City> citiesList) {
+    public void setCitiesList(final List<? extends CityWithIsFavourite> citiesList) {
         if (this.citiesList == null) {
             this.citiesList = citiesList;
             notifyItemRangeInserted(0, citiesList.size());
@@ -52,8 +57,8 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.CitiesView
 
                 @Override
                 public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-                    City city = citiesList.get(newItemPosition);
-                    City old = citiesList.get(oldItemPosition);
+                    CityWithIsFavourite city = citiesList.get(newItemPosition);
+                    CityWithIsFavourite old = citiesList.get(oldItemPosition);
                     return city.id == old.id
                             && Objects.equals(city.name, old.name);
                 }
@@ -70,7 +75,8 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.CitiesView
                 .inflate(LayoutInflater.from(parent.getContext()), R.layout.city_list_item,
                         parent, false);
 
-        binding.setCallback(cityClickCallback);
+        binding.setCallbackListItemClick(cityClickCallback);
+        binding.setCallbackFavouriteClick(cityFavouriteCallback);
 
         return new CitiesViewHolder(binding);
     }
