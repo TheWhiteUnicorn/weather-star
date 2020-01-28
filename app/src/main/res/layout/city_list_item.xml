@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="city" type="com.thewhiteunicorn.weatherstar.services.model.City"/>
+        <variable name="callback" type="com.thewhiteunicorn.weatherstar.view.callback.CityClickCallback"/>
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:onClick="@{() ->  callback.onClick(city)}"
+        android:layout_marginStart="@dimen/list_item_horizontal_margin"
+        android:layout_marginEnd="@dimen/list_item_horizontal_margin"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:layout_marginStart="@dimen/list_item_horizontal_margin"
+            android:layout_marginEnd="@dimen/list_item_horizontal_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/city_name"
+                android:textStyle="bold"
+                android:textSize="@dimen/city_text"
+                android:text="@{city.name}"/>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>

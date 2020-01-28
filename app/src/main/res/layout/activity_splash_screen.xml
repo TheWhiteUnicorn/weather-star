@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="isLoadFailed" type="Boolean"/>
+    </data>
+        <FrameLayout
+            android:id="@+id/splashscreen_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#0099cc"
+            tools:context=".view.ui.SplashScreenActivity">
+
+            <TextView
+                android:id="@+id/app_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:keepScreenOn="true"
+                android:text="@string/splash_screen_title"
+                android:textColor="#33b5e5"
+                android:textSize="50sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/loading_cities_data"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="16dp"
+                android:gravity="bottom|center"
+                android:text="@string/loading_cities_data"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/error_text"
+                android:textStyle="bold"
+                app:visibleGone="@{isLoadFailed}"/>
+
+            <TextView
+                android:id="@+id/error_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="16dp"
+                android:gravity="bottom|center"
+                android:text="@string/error_loading_app"
+                android:textColor="#C62828"
+                android:textSize="@dimen/error_text"
+                android:textStyle="bold"
+                android:visibility="invisible"/>
+        </FrameLayout>
+</layout>
