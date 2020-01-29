@@ -1,32 +1,73 @@
 package com.thewhiteunicorn.weatherstar.view.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.thewhiteunicorn.weatherstar.R;
+import com.thewhiteunicorn.weatherstar.databinding.FragmentFavouriteCitiesBinding;
+import com.thewhiteunicorn.weatherstar.view.adapter.CitiesAdapter;
+import com.thewhiteunicorn.weatherstar.view.callback.CityClickCallback;
+import com.thewhiteunicorn.weatherstar.view.callback.CityFavouriteCallback;
+import com.thewhiteunicorn.weatherstar.viewmodel.FavouriteCitiesViewModel;
 
 public class HomeFragment extends Fragment {
+    private FavouriteCitiesViewModel viewModel;
+    private CitiesAdapter citiesAdapter;
+    private FragmentFavouriteCitiesBinding binding;
 
-    // private HomeViewModel homeViewModel;
-
+    @Nullable
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        //homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_weather_details, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
-        textView.setText("Home");
-        /*homeViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });*/
-        return root;
+
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_favourite_cities, container, false);
+
+        citiesAdapter = new CitiesAdapter(cityClickCallback, cityFavouriteCallback);
+        binding.favouriteCitiesList.setAdapter(citiesAdapter);
+        binding.setIsLoading(true);
+
+        return binding.getRoot();
     }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        viewModel = ViewModelProviders.of(this).get(FavouriteCitiesViewModel.class);
+
+        observeViewModel(viewModel);
+    }
+
+    private void observeViewModel(FavouriteCitiesViewModel viewModel) {
+        // Update the list when the data changes
+        viewModel.getCitiesListObservable().observe(this, cities -> {
+            if (cities != null) {
+                binding.setIsLoading(false);
+                citiesAdapter.setCitiesList(cities);
+            }
+        });
+    }
+
+    private final CityClickCallback cityClickCallback = city -> {
+        if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
+            Intent intent = new Intent(getActivity(), WeatherDetailsActivity.class);
+            intent.putExtra("EXTRA_CITY_ID", city.id);
+            startActivity(intent);
+        }
+    };
+
+    private final CityFavouriteCallback cityFavouriteCallback = city -> {
+        if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
+            viewModel.toggleCityFavourite(city);
+        }
+    };
 }

@@ -7,7 +7,7 @@
     <string name="cities_list">Cities list</string>
     <string name="city_name">City name</string>
 
-    <string name="title_activity_splash_screen">SplashScreenActivity</string>
+    <string name="title_activity_splash_screen">Splash Screen</string>
     <string name="splash_screen_title">Weather star</string>
     <string name="loading_cities_data">Loading cities data</string>
     <string name="error_loading_app">Error loading app</string>

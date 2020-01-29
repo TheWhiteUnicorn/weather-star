@@ -13,10 +13,10 @@ import com.thewhiteunicorn.weatherstar.services.repository.CityDao;
 
 import java.util.List;
 
-public class CitiesListViewModel extends AndroidViewModel {
+public class FavouriteCitiesViewModel extends AndroidViewModel {
     private LiveData<List<CityWithIsFavourite>> citiesListObservable;
 
-    public CitiesListViewModel(Application application) {
+    public FavouriteCitiesViewModel(Application application) {
         super(application);
     }
 
@@ -30,7 +30,7 @@ public class CitiesListViewModel extends AndroidViewModel {
     private void loadData() {
         AppDatabase db = App.getInstance().getDatabase();
         CityDao cityDao = db.cityDao();
-        citiesListObservable = cityDao.getCitiesWithIsFavourite();
+        citiesListObservable = cityDao.getFavouriteCities();
     }
 
     public void toggleCityFavourite(CityWithIsFavourite city) {

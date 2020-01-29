@@ -21,7 +21,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_splash_screen);
-        binding.setIsLoadFailed(true);
+        binding.setIsLoadFailed(false);
 
         setContentView(R.layout.activity_splash_screen);
         View contentView = findViewById(R.id.splashscreen_content);

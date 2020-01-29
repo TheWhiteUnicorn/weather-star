@@ -33,6 +33,13 @@ public interface CityDao {
             "LIMIT 100")
     LiveData<List<CityWithIsFavourite>> getCitiesWithIsFavourite();
 
+    @Query("SELECT city.id, name, country, " +
+            "1 AS isFavourite " +
+            "FROM city LEFT JOIN FavoriteCity ON city.id == FavoriteCity.city_id " +
+            "WHERE FavoriteCity.id is not Null " +
+            "LIMIT 100")
+    LiveData<List<CityWithIsFavourite>> getFavouriteCities();
+
     @Insert
     void insert(City city);
 
@@ -41,6 +48,9 @@ public interface CityDao {
 
     @Insert
     void setFavourite(FavoriteCity favoriteCity);
+
+    @Query("DELETE FROM FavoriteCity WHERE city_id = :cityId")
+    void unsetFavourite(long cityId);
 
     @Update
     void update(City city);

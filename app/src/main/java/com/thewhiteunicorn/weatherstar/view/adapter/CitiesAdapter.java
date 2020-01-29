@@ -33,10 +33,10 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.CitiesView
         this.cityFavouriteCallback = cityFavouriteCallback;
     }
 
-    public void setCitiesList(final List<? extends CityWithIsFavourite> citiesList) {
+    public void setCitiesList(final List<? extends CityWithIsFavourite> newCitiesList) {
         if (this.citiesList == null) {
-            this.citiesList = citiesList;
-            notifyItemRangeInserted(0, citiesList.size());
+            this.citiesList = newCitiesList;
+            notifyItemRangeInserted(0, newCitiesList.size());
         } else {
             DiffUtil.DiffResult result = DiffUtil.calculateDiff(new DiffUtil.Callback() {
                 @Override
@@ -46,24 +46,25 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.CitiesView
 
                 @Override
                 public int getNewListSize() {
-                    return citiesList.size();
+                    return newCitiesList.size();
                 }
 
                 @Override
                 public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
                     return CitiesAdapter.this.citiesList.get(oldItemPosition).id ==
-                            citiesList.get(newItemPosition).id;
+                            newCitiesList.get(newItemPosition).id;
                 }
 
                 @Override
                 public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-                    CityWithIsFavourite city = citiesList.get(newItemPosition);
+                    CityWithIsFavourite city = newCitiesList.get(newItemPosition);
                     CityWithIsFavourite old = citiesList.get(oldItemPosition);
                     return city.id == old.id
-                            && Objects.equals(city.name, old.name);
+                            && Objects.equals(city.name, old.name)
+                            && city.isFavourite == old.isFavourite;
                 }
             });
-            this.citiesList = citiesList;
+            this.citiesList = newCitiesList;
             result.dispatchUpdatesTo(this);
         }
     }

@@ -1,5 +1,6 @@
 package com.thewhiteunicorn.weatherstar.view.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,6 +22,7 @@ import com.thewhiteunicorn.weatherstar.view.callback.CityFavouriteCallback;
 import com.thewhiteunicorn.weatherstar.viewmodel.CitiesListViewModel;
 
 public class CitiesListFragment extends Fragment {
+    private CitiesListViewModel viewModel;
     private CitiesAdapter citiesAdapter;
     private FragmentCitiesListBinding binding;
 
@@ -35,7 +37,7 @@ public class CitiesListFragment extends Fragment {
         cityDao.cleanFavouriesTable();
 
         FavoriteCity favoriteCity = new FavoriteCity();
-        favoriteCity.cityId = 833;
+        favoriteCity.cityId = 833;fragment_cities
         cityDao.setFavourite(favoriteCity);*/
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_cities_list, container, false);
@@ -50,8 +52,7 @@ public class CitiesListFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        final CitiesListViewModel viewModel =
-                ViewModelProviders.of(this).get(CitiesListViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(CitiesListViewModel.class);
 
         observeViewModel(viewModel);
     }
@@ -74,7 +75,7 @@ public class CitiesListFragment extends Fragment {
 
     private final CityFavouriteCallback cityFavouriteCallback = city -> {
         if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
-
+            viewModel.toggleCityFavourite(city);
         }
     };
 }
