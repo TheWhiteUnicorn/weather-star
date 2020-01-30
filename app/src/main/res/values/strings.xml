@@ -12,4 +12,5 @@
     <string name="loading_cities_data">Loading cities data</string>
     <string name="error_loading_app">Error loading app</string>
     <string name="favourite_city_marker">Favourite city marker</string>
+    <string name="weather_conditions_image">Weather conditions image</string>
 </resources>
