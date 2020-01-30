@@ -13,4 +13,6 @@
     <string name="error_loading_app">Error loading app</string>
     <string name="favourite_city_marker">Favourite city marker</string>
     <string name="weather_conditions_image">Weather conditions image</string>
+
+    <string name="temperature_format">%s°C</string>
 </resources>

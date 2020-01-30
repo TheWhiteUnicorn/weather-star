@@ -20,14 +20,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:visibleGone="@{!isLoading}">
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/weather_content"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 tools:context=".view.ui.WeatherDetailsActivity">
 
                 <TextView
@@ -35,9 +35,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    android:textSize="30sp"
                     android:text="@{currentWeatherSnapshotViewModel.weatherSnapshot.name}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+                    android:textSize="30sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -48,25 +48,28 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
+                    android:text="@{@string/temperature_format(String.valueOf(currentWeatherSnapshotViewModel.weatherSnapshot.getMain().temp))}"
                     android:textAppearance="@style/TextAppearance.AppCompat.Display3"
                     android:textSize="80sp"
-                    android:text="@{String.valueOf(currentWeatherSnapshotViewModel.weatherSnapshot.getMain().temp)}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/weather_city"
-                    tools:text="+24°C" />
+                    tools:text="+24°C"/>
 
                 <TextView
                     android:id="@+id/weather_conditions_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:layout_marginBottom="32dp"
                     android:text="@{currentWeatherSnapshotViewModel.weatherSnapshot.getWeather()[0].getDescription}"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.507"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/weather_conditions_image"
+                    app:layout_constraintVertical_bias="0.0"
                     tools:text="Cloudy with a chance of meatballs" />
 
                 <ImageView
@@ -74,13 +77,13 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_marginTop="32dp"
-                    android:scaleType="centerInside"
                     android:contentDescription="@string/weather_conditions_image"
+                    android:scaleType="centerInside"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/weather_temp"
                     app:weatherCondIconCode="@{currentWeatherSnapshotViewModel.weatherSnapshot.getWeather()[0].getIcon()}" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 </layout>
