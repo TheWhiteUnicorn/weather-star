@@ -1,6 +1,7 @@
 package com.thewhiteunicorn.weatherstar.services.repository;
 
 import androidx.lifecycle.LiveData;
+import androidx.paging.DataSource;
 import androidx.room.Dao;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -29,15 +30,13 @@ public interface CityDao {
             "CASE WHEN (FavoriteCity.id is null) " +
             "THEN 0 " +
             "ELSE 1 END AS isFavourite " +
-            "FROM city LEFT JOIN FavoriteCity ON city.id == FavoriteCity.city_id " +
-            "LIMIT 100")
-    LiveData<List<CityWithIsFavourite>> getCitiesWithIsFavourite();
+            "FROM city LEFT JOIN FavoriteCity ON city.id == FavoriteCity.city_id ")
+    DataSource.Factory<Integer, CityWithIsFavourite> getCitiesWithIsFavourite();
 
     @Query("SELECT city.id, name, country, " +
             "1 AS isFavourite " +
             "FROM city LEFT JOIN FavoriteCity ON city.id == FavoriteCity.city_id " +
-            "WHERE FavoriteCity.id is not Null " +
-            "LIMIT 100")
+            "WHERE FavoriteCity.id is not Null ")
     LiveData<List<CityWithIsFavourite>> getFavouriteCities();
 
     @Insert

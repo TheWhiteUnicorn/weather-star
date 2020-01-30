@@ -4,6 +4,9 @@ import android.app.Application;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.paging.DataSource;
+import androidx.paging.LivePagedListBuilder;
+import androidx.paging.PagedList;
 
 import com.thewhiteunicorn.weatherstar.App;
 import com.thewhiteunicorn.weatherstar.services.AppDatabase;
@@ -11,26 +14,21 @@ import com.thewhiteunicorn.weatherstar.services.model.CityWithIsFavourite;
 import com.thewhiteunicorn.weatherstar.services.model.FavoriteCity;
 import com.thewhiteunicorn.weatherstar.services.repository.CityDao;
 
-import java.util.List;
 
 public class CitiesListViewModel extends AndroidViewModel {
-    private LiveData<List<CityWithIsFavourite>> citiesListObservable;
+    private LiveData<PagedList<CityWithIsFavourite>> citiesLiveData;
 
     public CitiesListViewModel(Application application) {
         super(application);
+        CityDao cityDao = App.getInstance().getDatabase().cityDao();
+        DataSource.Factory<Integer, CityWithIsFavourite> factory = cityDao.getCitiesWithIsFavourite();
+        LivePagedListBuilder<Integer, CityWithIsFavourite> pagedListBuilder =
+                new LivePagedListBuilder<>(factory, 50);
+        citiesLiveData = pagedListBuilder.build();
     }
 
-    public LiveData<List<CityWithIsFavourite>> getCitiesListObservable() {
-        if (citiesListObservable == null) {
-            loadData();
-        }
-        return citiesListObservable;
-    }
-
-    private void loadData() {
-        AppDatabase db = App.getInstance().getDatabase();
-        CityDao cityDao = db.cityDao();
-        citiesListObservable = cityDao.getCitiesWithIsFavourite();
+    public LiveData<PagedList<CityWithIsFavourite>> getCitiesLiveData() {
+        return citiesLiveData;
     }
 
     public void toggleCityFavourite(CityWithIsFavourite city) {
