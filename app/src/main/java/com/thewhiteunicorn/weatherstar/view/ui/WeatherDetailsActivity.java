@@ -8,14 +8,13 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.thewhiteunicorn.weatherstar.R;
-import com.thewhiteunicorn.weatherstar.databinding.ActivityWeatherDetailsBinding
-        ;
+import com.thewhiteunicorn.weatherstar.databinding.ActivityWeatherDetailsBinding;
 import com.thewhiteunicorn.weatherstar.services.model.weatherSnapshot.WeatherSnapshot;
 import com.thewhiteunicorn.weatherstar.viewmodel.CurrentWeatherSnapshotViewModel;
 
 
 public class WeatherDetailsActivity extends AppCompatActivity {
-    private static final String KEY_CITY_ID = "city_id";
+    public static final String KEY_CITY_ID = "city_id";
     private CurrentWeatherSnapshotViewModel currentWeatherSnapshotViewModel;
 
     @Override
@@ -30,7 +29,7 @@ public class WeatherDetailsActivity extends AppCompatActivity {
         CurrentWeatherSnapshotViewModel.Factory factory =
                 new CurrentWeatherSnapshotViewModel.Factory(
                         this.getApplication(),
-                        getIntent().getLongExtra(KEY_CITY_ID, 0));
+                        getIntent().getLongExtra(KEY_CITY_ID, 1));
 
         currentWeatherSnapshotViewModel = ViewModelProviders.of(this, factory)
                 .get(CurrentWeatherSnapshotViewModel.class);

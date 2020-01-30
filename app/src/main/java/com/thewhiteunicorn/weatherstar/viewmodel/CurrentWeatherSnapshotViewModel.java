@@ -21,7 +21,7 @@ public class CurrentWeatherSnapshotViewModel extends AndroidViewModel {
     public CurrentWeatherSnapshotViewModel(@NonNull Application application, long cityId) {
         super(application);
         this.cityId = cityId;
-        currentWeatherSnapshotObservable = WeatherDataProvider.getInstance().getCurrentWeather(); // TODO: city id
+        currentWeatherSnapshotObservable = WeatherDataProvider.getInstance().getCurrentWeather(cityId);
     }
 
     public LiveData<WeatherSnapshot> getCurrentWeatherSnapshotObservable() {

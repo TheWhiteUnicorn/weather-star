@@ -20,6 +20,8 @@ import com.thewhiteunicorn.weatherstar.view.callback.CityClickCallback;
 import com.thewhiteunicorn.weatherstar.view.callback.CityFavouriteCallback;
 import com.thewhiteunicorn.weatherstar.viewmodel.FavouriteCitiesViewModel;
 
+import static com.thewhiteunicorn.weatherstar.view.ui.WeatherDetailsActivity.KEY_CITY_ID;
+
 public class HomeFragment extends Fragment {
     private FavouriteCitiesViewModel viewModel;
     private CitiesAdapter citiesAdapter;
@@ -60,7 +62,7 @@ public class HomeFragment extends Fragment {
     private final CityClickCallback cityClickCallback = city -> {
         if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
             Intent intent = new Intent(getActivity(), WeatherDetailsActivity.class);
-            intent.putExtra("EXTRA_CITY_ID", city.id);
+            intent.putExtra(KEY_CITY_ID, city.id);
             startActivity(intent);
         }
     };
