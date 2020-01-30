@@ -82,6 +82,7 @@ public class CitiesListFragment extends Fragment {
 
         @Override
         public boolean onQueryTextChange(String s) {
+            viewModel.setSearchKeyword(s);
             return false;
         }
     };

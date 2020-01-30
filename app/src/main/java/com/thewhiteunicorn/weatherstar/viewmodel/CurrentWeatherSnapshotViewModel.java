@@ -14,13 +14,11 @@ import com.thewhiteunicorn.weatherstar.services.repository.WeatherDataProvider;
 
 public class CurrentWeatherSnapshotViewModel extends AndroidViewModel {
     private final LiveData<WeatherSnapshot> currentWeatherSnapshotObservable;
-    private final long cityId;
 
     public ObservableField<WeatherSnapshot> weatherSnapshot = new ObservableField<>();
 
-    public CurrentWeatherSnapshotViewModel(@NonNull Application application, long cityId) {
+    private CurrentWeatherSnapshotViewModel(@NonNull Application application, long cityId) {
         super(application);
-        this.cityId = cityId;
         currentWeatherSnapshotObservable = WeatherDataProvider.getInstance().getCurrentWeather(cityId);
     }
 

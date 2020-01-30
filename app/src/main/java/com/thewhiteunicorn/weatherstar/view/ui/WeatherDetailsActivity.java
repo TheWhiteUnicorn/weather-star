@@ -9,20 +9,19 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.thewhiteunicorn.weatherstar.R;
 import com.thewhiteunicorn.weatherstar.databinding.ActivityWeatherDetailsBinding;
-import com.thewhiteunicorn.weatherstar.services.model.weatherSnapshot.WeatherSnapshot;
 import com.thewhiteunicorn.weatherstar.viewmodel.CurrentWeatherSnapshotViewModel;
 
 
 public class WeatherDetailsActivity extends AppCompatActivity {
     public static final String KEY_CITY_ID = "city_id";
     private CurrentWeatherSnapshotViewModel currentWeatherSnapshotViewModel;
+    ActivityWeatherDetailsBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ActivityWeatherDetailsBinding binding =
-                DataBindingUtil.setContentView(this, R.layout.activity_weather_details);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_weather_details);
 
         CurrentWeatherSnapshotViewModel.Factory factory =
                 new CurrentWeatherSnapshotViewModel.Factory(
@@ -33,16 +32,15 @@ public class WeatherDetailsActivity extends AppCompatActivity {
                 .get(CurrentWeatherSnapshotViewModel.class);
 
         binding.setCurrentWeatherSnapshotViewModel(currentWeatherSnapshotViewModel);
+        binding.setIsLoading(true);
         observeViewModel(currentWeatherSnapshotViewModel);
     }
 
     private void observeViewModel(final CurrentWeatherSnapshotViewModel viewModel) {
         currentWeatherSnapshotViewModel.getCurrentWeatherSnapshotObservable()
-                .observe(this, new Observer<WeatherSnapshot>() {
-                    @Override
-                    public void onChanged(WeatherSnapshot snapshot) {
-                        viewModel.setWeatherSnapshot(snapshot);
-                    }
+                .observe(this, snapshot -> {
+                    viewModel.setWeatherSnapshot(snapshot);
+                    binding.setIsLoading(false);
                 });
     }
 }

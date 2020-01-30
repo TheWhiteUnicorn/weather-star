@@ -1,66 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable name="currentWeatherSnapshotViewModel" type="com.thewhiteunicorn.weatherstar.viewmodel.CurrentWeatherSnapshotViewModel"/>
+        <variable name="isLoading" type="Boolean"/>
     </data>
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/weather_content"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".view.ui.WeatherDetailsActivity">
-
-            <TextView
-                android:id="@+id/weather_city"
+            android:gravity="center"
+            app:visibleGone="@{isLoading}">
+            <ProgressBar
+                style="?android:attr/progressBarStyleLarge"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textSize="30sp"
-                android:text="@{currentWeatherSnapshotViewModel.weatherSnapshot.name}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="London" />
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:visibleGone="@{!isLoading}">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/weather_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".view.ui.WeatherDetailsActivity">
 
-            <TextView
-                android:id="@+id/weather_temp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display3"
-                android:textSize="80sp"
-                android:text="@{String.valueOf(currentWeatherSnapshotViewModel.weatherSnapshot.getMain().temp)}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/weather_city"
-                tools:text="+24°C" />
+                <TextView
+                    android:id="@+id/weather_city"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textSize="30sp"
+                    android:text="@{currentWeatherSnapshotViewModel.weatherSnapshot.name}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="London" />
 
-            <TextView
-                android:id="@+id/weather_conditions_detail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@{currentWeatherSnapshotViewModel.weatherSnapshot.getWeather()[0].getDescription}"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.507"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/weather_conditions_image"
-                tools:text="Cloudy with a chance of meatballs" />
+                <TextView
+                    android:id="@+id/weather_temp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+                    android:textSize="80sp"
+                    android:text="@{String.valueOf(currentWeatherSnapshotViewModel.weatherSnapshot.getMain().temp)}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/weather_city"
+                    tools:text="+24°C" />
 
-            <ImageView
-                android:id="@+id/weather_conditions_image"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginTop="32dp"
-                android:scaleType="centerInside"
-                android:contentDescription="@string/weather_conditions_image"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/weather_temp"
-                app:weatherCondIconCode="@{currentWeatherSnapshotViewModel.weatherSnapshot.getWeather()[0].getIcon()}" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/weather_conditions_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@{currentWeatherSnapshotViewModel.weatherSnapshot.getWeather()[0].getDescription}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.507"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/weather_conditions_image"
+                    tools:text="Cloudy with a chance of meatballs" />
+
+                <ImageView
+                    android:id="@+id/weather_conditions_image"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="32dp"
+                    android:scaleType="centerInside"
+                    android:contentDescription="@string/weather_conditions_image"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/weather_temp"
+                    app:weatherCondIconCode="@{currentWeatherSnapshotViewModel.weatherSnapshot.getWeather()[0].getIcon()}" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </LinearLayout>
 </layout>
