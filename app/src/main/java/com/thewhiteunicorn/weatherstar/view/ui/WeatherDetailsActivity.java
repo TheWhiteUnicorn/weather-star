@@ -20,16 +20,14 @@ public class WeatherDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_weather_details);
 
         ActivityWeatherDetailsBinding binding =
                 DataBindingUtil.setContentView(this, R.layout.activity_weather_details);
-        binding.setTmp("Hello world");
 
         CurrentWeatherSnapshotViewModel.Factory factory =
                 new CurrentWeatherSnapshotViewModel.Factory(
                         this.getApplication(),
-                        getIntent().getLongExtra(KEY_CITY_ID, 1));
+                        getIntent().getLongExtra(KEY_CITY_ID, 0));
 
         currentWeatherSnapshotViewModel = ViewModelProviders.of(this, factory)
                 .get(CurrentWeatherSnapshotViewModel.class);

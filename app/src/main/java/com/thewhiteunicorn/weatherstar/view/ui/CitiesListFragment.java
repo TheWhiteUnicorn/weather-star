@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProviders;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
 import com.thewhiteunicorn.weatherstar.R;
 import com.thewhiteunicorn.weatherstar.databinding.FragmentCitiesListBinding;
@@ -36,6 +37,13 @@ public class CitiesListFragment extends Fragment {
         binding.citiesList.setAdapter(citiesAdapter);
         binding.setIsLoading(true);
 
+        binding.citiesSearchView.setSubmitButtonEnabled(true);
+        binding.citiesSearchView.setOnQueryTextListener(searchListener);
+        binding.citiesSearchView.setOnCloseListener(() -> {
+            viewModel.setSearchKeyword("");
+            return false;
+        });
+
         return binding.getRoot();
     }
 
@@ -43,6 +51,7 @@ public class CitiesListFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         viewModel = ViewModelProviders.of(this).get(CitiesListViewModel.class);
+        viewModel.setSearchKeyword("");
         viewModel.getCitiesLiveData().observe(this, cities -> {
             if (cities != null) {
                 binding.setIsLoading(false);
@@ -60,6 +69,20 @@ public class CitiesListFragment extends Fragment {
     private final CityFavouriteCallback cityFavouriteCallback = city -> {
         if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
             viewModel.toggleCityFavourite(city);
+        }
+    };
+
+    private final SearchView.OnQueryTextListener searchListener = new SearchView.OnQueryTextListener() {
+        @Override
+        public boolean onQueryTextSubmit(String s) {
+            viewModel.setSearchKeyword(s);
+            binding.setIsLoading(true);
+            return false;
+        }
+
+        @Override
+        public boolean onQueryTextChange(String s) {
+            return false;
         }
     };
 }

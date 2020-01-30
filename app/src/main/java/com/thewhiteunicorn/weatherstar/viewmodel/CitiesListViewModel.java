@@ -4,6 +4,8 @@ import android.app.Application;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
 import androidx.paging.DataSource;
 import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedList;
@@ -17,18 +19,30 @@ import com.thewhiteunicorn.weatherstar.services.repository.CityDao;
 
 public class CitiesListViewModel extends AndroidViewModel {
     private LiveData<PagedList<CityWithIsFavourite>> citiesLiveData;
+    private MutableLiveData<String> searchKeyword = new MutableLiveData<>();
 
     public CitiesListViewModel(Application application) {
         super(application);
         CityDao cityDao = App.getInstance().getDatabase().cityDao();
-        DataSource.Factory<Integer, CityWithIsFavourite> factory = cityDao.getCitiesWithIsFavourite();
-        LivePagedListBuilder<Integer, CityWithIsFavourite> pagedListBuilder =
-                new LivePagedListBuilder<>(factory, 50);
-        citiesLiveData = pagedListBuilder.build();
+
+        citiesLiveData = Transformations.switchMap(searchKeyword, input -> {
+            DataSource.Factory<Integer, CityWithIsFavourite> factory;
+            if (input == null || input.equals("") || input.equals("%%")) {
+                //check if the current value is empty load all data else search
+                factory = cityDao.getCitiesWithIsFavourite();
+            } else {
+                factory = cityDao.getCitiesWithIsFavouriteByName('%'+input+'%');
+            }
+            return new LivePagedListBuilder<>(factory, 50).build();
+        });
     }
 
     public LiveData<PagedList<CityWithIsFavourite>> getCitiesLiveData() {
         return citiesLiveData;
+    }
+
+    public void setSearchKeyword(String keyword) {
+        searchKeyword.setValue(keyword);
     }
 
     public void toggleCityFavourite(CityWithIsFavourite city) {

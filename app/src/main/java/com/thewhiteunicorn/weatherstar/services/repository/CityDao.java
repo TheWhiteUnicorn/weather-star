@@ -34,6 +34,14 @@ public interface CityDao {
     DataSource.Factory<Integer, CityWithIsFavourite> getCitiesWithIsFavourite();
 
     @Query("SELECT city.id, name, country, " +
+            "CASE WHEN (FavoriteCity.id is null) " +
+            "THEN 0 " +
+            "ELSE 1 END AS isFavourite " +
+            "FROM city LEFT JOIN FavoriteCity ON city.id == FavoriteCity.city_id " +
+            "WHERE name LIKE :name ")
+    DataSource.Factory<Integer, CityWithIsFavourite> getCitiesWithIsFavouriteByName(String name);
+
+    @Query("SELECT city.id, name, country, " +
             "1 AS isFavourite " +
             "FROM city LEFT JOIN FavoriteCity ON city.id == FavoriteCity.city_id " +
             "WHERE FavoriteCity.id is not Null ")
