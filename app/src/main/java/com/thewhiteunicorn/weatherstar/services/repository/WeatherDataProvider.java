@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.thewhiteunicorn.weatherstar.services.model.WeatherSnapshot;
+import com.thewhiteunicorn.weatherstar.services.model.weatherSnapshot.WeatherSnapshot;
 
 import retrofit2.Call;
 import retrofit2.Callback;

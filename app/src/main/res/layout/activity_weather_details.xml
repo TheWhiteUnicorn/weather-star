@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
@@ -13,13 +14,42 @@
             tools:context=".view.ui.WeatherDetailsActivity">
 
             <TextView
-                android:id="@+id/weather_temperature"
+                android:id="@+id/weather_city"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="411dp"
+                android:layout_marginTop="32dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textSize="30sp"
                 android:text="@{currentWeatherSnapshotViewModel.weatherSnapshot.name}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="London" />
+
+            <TextView
+                android:id="@+id/weather_temp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+                android:textSize="80sp"
+                android:text="@{String.valueOf(currentWeatherSnapshotViewModel.weatherSnapshot.getMain().temp)}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/weather_city"
+                tools:text="+24°C" />
+
+            <TextView
+                android:id="@+id/weather_conditions_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:text="@{currentWeatherSnapshotViewModel.weatherSnapshot.getWeather()[0].getDescription}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/weather_temp"
+                tools:text="Cloudy with a chance of meatballs" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

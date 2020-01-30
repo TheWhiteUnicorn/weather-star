@@ -9,7 +9,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.thewhiteunicorn.weatherstar.services.model.WeatherSnapshot;
+import com.thewhiteunicorn.weatherstar.services.model.weatherSnapshot.WeatherSnapshot;
 import com.thewhiteunicorn.weatherstar.services.repository.WeatherDataProvider;
 
 public class CurrentWeatherSnapshotViewModel extends AndroidViewModel {

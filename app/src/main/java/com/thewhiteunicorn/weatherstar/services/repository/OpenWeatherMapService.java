@@ -1,6 +1,6 @@
 package com.thewhiteunicorn.weatherstar.services.repository;
 
-import com.thewhiteunicorn.weatherstar.services.model.WeatherSnapshot;
+import com.thewhiteunicorn.weatherstar.services.model.weatherSnapshot.WeatherSnapshot;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

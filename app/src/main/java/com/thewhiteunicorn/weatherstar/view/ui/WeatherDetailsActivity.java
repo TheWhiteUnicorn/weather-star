@@ -1,7 +1,6 @@
 package com.thewhiteunicorn.weatherstar.view.ui;
 
 import android.os.Bundle;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -11,7 +10,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.thewhiteunicorn.weatherstar.R;
 import com.thewhiteunicorn.weatherstar.databinding.ActivityWeatherDetailsBinding
         ;
-import com.thewhiteunicorn.weatherstar.services.model.WeatherSnapshot;
+import com.thewhiteunicorn.weatherstar.services.model.weatherSnapshot.WeatherSnapshot;
 import com.thewhiteunicorn.weatherstar.viewmodel.CurrentWeatherSnapshotViewModel;
 
 
@@ -22,12 +21,11 @@ public class WeatherDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //setContentView(R.layout.activity_weather_details);
 
-        ActivityWeatherDetailsBinding binding = DataBindingUtil
-                .setContentView(this, R.layout.activity_weather_details);
-
-        setContentView(R.layout.activity_weather_details);
-
+        ActivityWeatherDetailsBinding binding =
+                DataBindingUtil.setContentView(this, R.layout.activity_weather_details);
+        binding.setTmp("Hello world");
 
         CurrentWeatherSnapshotViewModel.Factory factory =
                 new CurrentWeatherSnapshotViewModel.Factory(
